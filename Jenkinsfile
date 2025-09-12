@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    IMAGE_NAME     = 'cicd-go-app'
+    IMAGE_NAME     = 'jenkins-go-app'
     IMAGE          = "jakirhosen9395/${IMAGE_NAME}"
     TAG            = "${env.BUILD_ID}"
 
@@ -14,8 +14,7 @@ pipeline {
     MANIFEST_BRANCH= 'k8s-manifest'
     MANIFEST_FILE  = 'go-app-cicd.yaml'
     
-
-    CONTAINER_NAME  = 'cicd-go-app'
+    CONTAINER_NAME  = 'jenkins-go-app'
     PORT_MAP        = '9001:9000'
     HOST            = 'root@192.168.56.51'
     SSH_CREDENTIALS = 'ssh-deploy-key'

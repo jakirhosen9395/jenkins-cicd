@@ -1,0 +1,29 @@
+pipeline {
+  agent any
+  environment {
+    IMAGE_NAME     = 'jenkins-go-app'
+    IMAGE          = "jakirhosen9395/${IMAGE_NAME}"
+    TAG            = "${env.BUILD_ID}"
+
+    CODE_REPO      = 'git@github.com:jakirhosen9395/developer-repo.git'
+    CODE_BRANCH    = 'go-app-develop'
+
+    SCANNER_HOME   = tool 'sonar7.2'
+    
+    MANIFEST_REPO  = 'git@github.com:jakirhosen9395/deploy-repo.git'
+    MANIFEST_BRANCH= 'k8s-manifest'
+    MANIFEST_FILE  = 'go-app-cicd.yaml'
+    
+    CONTAINER_NAME  = 'jenkins-go-app'
+    PORT_MAP        = '9001:9000'
+    HOST            = 'root@192.168.56.51'
+    SSH_CREDENTIALS = 'ssh-deploy-key'
+  }
+
+  stages {
+    stage('Checkout source') {
+      steps {
+        git branch: "${CODE_BRANCH}", url: "${CODE_REPO}"
+      }
+    }
+}
